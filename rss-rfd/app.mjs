@@ -1,15 +1,15 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-const DB_TABLE = 'RssRFD';
-
 export const lambdaHandler = async (event) => {
-    console.log('hello')
+    console.log('Running Rss Rfd')
     try {
         const result = await dynamodb.get({
-            TableName: 'YourDynamoDBTableName', // Change this to your table name
-            Key: { VariableName: variableName },
+            TableName: 'RssRfd',
+            Key: { id: 'config' },
         }).promise();
+
+        console.log(result);
 
         return {
             'statusCode': 200,
@@ -18,6 +18,7 @@ export const lambdaHandler = async (event) => {
             })
         }
     } catch (err) {
+        console.log('error happened!')
         console.log(err);
         return err;
     }
